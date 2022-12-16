@@ -3,8 +3,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "esbuild app/javascript/*.*  --bundle --outdir=app/assets/builds",
-    "build:css": "sass ./app/assets/stylesheets/application/bootstrap.scss ./app/assests/builds/application.css --no-source-map --load-path=node_modules"
+    "build": "webpack ./app/javascript/**/*.js  --bundle --outdir=app/assets/builds --mode=none",
+    "build:css": "sass ./app/assets/stylesheets/application/bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
