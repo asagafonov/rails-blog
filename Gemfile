@@ -9,10 +9,13 @@ gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'jbuilder'
 gem 'jsbundling-rails'
+gem 'minitest-power_assert'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.4'
-gem 'rubocop'
 gem 'sass-rails'
+gem 'sentry-rails'
+gem 'sentry-ruby'
+gem 'slim'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'
@@ -25,6 +28,10 @@ end
 
 group :development do
   gem 'byebug'
+  gem 'faker'
+  gem 'rubocop'
+  gem 'rubocop-rails'
+  gem 'slim_lint'
   gem 'sqlite3', '~> 1.4'
   gem 'web-console'
 end
