@@ -24,8 +24,8 @@ end
 
 group :development do
   gem 'byebug'
-  gem 'web-console'
   gem 'sqlite3', '~> 1.4'
+  gem 'web-console'
 end
 
 group :test do
