@@ -1,6 +1,11 @@
 {
   "name": "rails-blog",
-  "private": false,
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "esbuild app/javascript/*.*  --bundle --outdir=app/assets/builds",
+    "build:css": "sass ./app/assets/stylesheets/application/bootstrap.scss ./app/assests/builds/application.css --no-source-map --load-path=node_modules"
+  },
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
