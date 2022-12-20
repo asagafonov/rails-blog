@@ -16,10 +16,11 @@ gem 'rails', '~> 7.0.4'
 gem 'sass-rails'
 gem 'sentry-rails'
 gem 'sentry-ruby'
+gem 'simple_form'
 gem 'slim'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
-gem "turbo-rails", '~> 1.0.0'
+gem 'turbo-rails', '~> 1.0.0'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'webpacker'
 
