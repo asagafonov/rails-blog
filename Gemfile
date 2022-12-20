@@ -7,6 +7,7 @@ ruby '3.1.2'
 
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
+gem 'devise'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'minitest-power_assert'
@@ -18,7 +19,7 @@ gem 'sentry-ruby'
 gem 'slim'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
-gem 'turbo-rails'
+gem "turbo-rails", '~> 1.0.0'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'webpacker'
 
@@ -29,6 +30,7 @@ end
 group :development do
   gem 'byebug'
   gem 'faker'
+  gem 'html2slim', '~> 0.2.0'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'slim_lint'
