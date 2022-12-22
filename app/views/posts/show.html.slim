@@ -1,5 +1,7 @@
 h2= @post.title
 p= @post.body
 
-p= @post.creator
-p= @post.category
+p= @post.user.email
+p= @post.category.name
+
+= link_to 'Back to posts', posts_url, class: 'btn btn-outline-secondary'

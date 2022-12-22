@@ -1,14 +1,15 @@
-.container.my-4
-  h1 Posts
-  = @posts.each do |post|
-    .row
-    .col-md-12
-      .card.mb-3
-        .card-body
-          h2.h5.card-title= post.title
-          .card-text.mb-2= post.body
-          .text-right.small.text-muted.mt-auto
-            span.me-2 Понравилось: 0
-            span.me-2 12 минут
-            span= post.creator.email
+h1.mb-4 Коллективный блог
 
+- unless @posts.empty?
+  - @posts.each do |post|
+    .row
+      .col-md-12
+        .card.mb-3
+          .card-body
+            h2.h5.card-title
+              = link_to post.title, post_url(post), class: 'link-dark text-decoration-none'
+            .card-text.mb-2= post.body
+            .text-right.small.text-muted.mt-auto
+              span.me-2 Понравилось: 0
+              span.me-2 12 минут
+              span= post.user.email

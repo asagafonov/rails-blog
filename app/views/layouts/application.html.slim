@@ -10,4 +10,13 @@ html
     / = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
     = javascript_pack_tag "application"
   body.d-flex.flex-column.h-100
-    = yield
+    .container.mb-2
+      .d-flex.flex-wrap.align-items-center.py-2.border-bottom.mb-4
+        .navbar.navbar-expand-md.navbar-light.me-auto
+          = link_to (image_tag('home.png', alt: 'home', title: 'home', class: 'home_button')), root_path, class: 'navbar-brand me-md-4'
+        ul.nav.nav-pills
+          li.nav-item.me-2
+            = user_signed_in? ? (link_to 'Добавить статью', new_post_url, class: 'nav-link link-dark') : (link_to 'Войти', new_user_session_url, class: 'nav-link link-dark')
+          li.nav-item.me-2
+            = user_signed_in? ? (link_to 'Выйти', destroy_user_session_url, class: 'nav-link link-dark') : (link_to 'Регистрация', new_user_registration_url, class: 'nav-link link-dark') 
+      = yield
