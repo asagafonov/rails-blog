@@ -11,5 +11,7 @@ h1.mb-4 Коллективный блог
             .card-text.mb-2= post.body
             .text-right.small.text-muted.mt-auto
               span.me-2 Понравилось: 0
-              span.me-2 12 минут
+              span.me-2 •
+              span.me-2= PostsHelper::TimeSince.amount(post.created_at)
+              span.me-2 •
               span= post.user.email

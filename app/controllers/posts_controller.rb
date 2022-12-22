@@ -30,11 +30,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.new(post_params)
-    category = Category.find(post_params[:category_id])
-    user = User.find(current_user[:id])
-    @post.category = category
-    @post.user = user
+    @post = Post.find(params[:id])
 
     if @post.update(post_params)
       redirect_to @post, notice: 'Post updated'
@@ -53,6 +49,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:category_id, :creator, :body, :title, :user_id)
+    params.require(:post).permit(:category_id, :body, :title, :user_id)
   end
 end
