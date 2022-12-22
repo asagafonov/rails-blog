@@ -29,7 +29,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'byebug'
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'faker'
   gem 'html2slim', '~> 0.2.0'
   gem 'rubocop'
