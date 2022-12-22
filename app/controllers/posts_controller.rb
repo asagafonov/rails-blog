@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     category = Category.find(post_params[:category_id])
-    user = User.find(post_params[:user_id])
+    user = User.find(current_user[:id])
     @post.category = category
     @post.user = user
 
@@ -32,7 +32,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.new(post_params)
     category = Category.find(post_params[:category_id])
-    user = User.find(post_params[:user_id])
+    user = User.find(current_user[:id])
     @post.category = category
     @post.user = user
 
@@ -53,6 +53,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:category_id, :creator, :description, :title, :user_id)
+    params.require(:post).permit(:category_id, :creator, :body, :title, :user_id)
   end
 end
