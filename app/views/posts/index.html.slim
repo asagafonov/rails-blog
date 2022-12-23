@@ -14,4 +14,4 @@ h1.mb-4 Коллективный блог
               span.me-2 •
               span.me-2= PostsHelper::TimeSince.amount(post.created_at)
               span.me-2 •
-              span= post.user.email
+              span= post.creator.email
