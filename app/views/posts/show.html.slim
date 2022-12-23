@@ -20,5 +20,5 @@ p= @post.body
 == render 'posts/comments/form', comment: @comment, url: post_comments_url(@post)
 
 - unless @comments.empty?
-  = @comments.each do |comment|
-    = render comment.body
+  - @comments.each do |comment|
+    = comment.body
