@@ -6,7 +6,8 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comments = PostComment.where(post_id: params[:id])
-    @new_comment = @post.comments.build
+    user = User.find(current_user[:id])
+    @comment = @post.comments.build({ user_id: current_user[:id]})
   end
 
   def new
@@ -52,5 +53,9 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:category_id, :body, :title, :user_id)
+  end
+
+  def comment_params
+    params.permit(:body, :post_id, :user_id)
   end
 end

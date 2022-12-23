@@ -4,15 +4,15 @@ module Posts
     before_action :set_comment, only: %i[edit update destroy]
 
     def index
-      @comments = @post.comments
     end
 
     def new
-      @comment = @post.comments.build
     end
 
     def create
       @comment = @post.comments.build(comment_params)
+      user = User.find(@post[:id])
+      @comment.user = user
 
       if @comment.save
         redirect_to post_path(@post), notice: 'Comment was successfully created.'
@@ -49,7 +49,7 @@ module Posts
     end
 
     def comment_params
-      params.permit(:body, :post_id)
+      params.permit(:body, :post_id, :user_id)
     end
   end
 end
