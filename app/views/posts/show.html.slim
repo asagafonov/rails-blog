@@ -4,7 +4,7 @@ ol.breadcrumb
 
 h1.mb-4.mb-lg-5= @post.title
 
-- if @post.user.email == current_user.email
+- if @post.creator.email == current_user.email
   .d-flex.mb-4
     = link_to 'Редактировать', edit_post_url(@post), class: 'btn btn-outline-primary me-2'
     = link_to 'Удалить', @post, data: { 'turbo-method': :delete, confirm: 'Are you sure?' }, class: 'btn btn-outline-danger'
@@ -12,7 +12,15 @@ h1.mb-4.mb-lg-5= @post.title
 p= @post.body
 
 .d-flex.mt-5.gap-4.mb-4
-  p= @post.user.email
+  p= @post.creator.email
   p= PostsHelper::TimeSince.amount(@post.created_at)
 
 .lead.mb-3 Комментарий
+
+/ = simple_form_for(@new_comment, post_post_comments_path(@post)) do |f|
+/   = f.input :body
+/   = f.submit
+
+- unless @comments.empty?
+  = @comments.each do |comment|
+    = render comment
