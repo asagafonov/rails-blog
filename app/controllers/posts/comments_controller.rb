@@ -11,13 +11,12 @@ module Posts
 
     def create
       @comment = @post.comments.build(comment_params)
-      user = User.find(@post[:id])
-      @comment.user = user
+      @comment.creator = current_user
 
       if @comment.save
         redirect_to post_path(@post), notice: 'Comment was successfully created.'
       else
-        render :new, status: :unprocessable_entity
+        redirect_to post_path(@post), notice: 'Comment creation failed'
       end
     end
 
@@ -26,16 +25,15 @@ module Posts
 
     def update
       if @comment.update(comment_params)
-        redirect_to posts_url, notice: 'Comment was successfully updated.'
+        redirect_to post_url(@comment[:post_id]), notice: 'Comment was successfully updated.'
       else
         render :edit, status: :unprocessable_entity
       end
     end
 
     def destroy
-      @comment = PostComment.find(params[:id])
-
       @comment.destroy
+      redirect_to post_url(@comment[:post_id])
     end
 
     private
@@ -45,11 +43,11 @@ module Posts
     end
 
     def set_comment
-      @comment = Comment.find(params[:id])
+      @comment = PostComment.find(params[:id])
     end
 
     def comment_params
-      params.permit(:body, :post_id, :user_id)
+      params.require(:post_comment).permit(:body, :post_id)
     end
   end
 end

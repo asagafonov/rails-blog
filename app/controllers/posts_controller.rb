@@ -1,13 +1,13 @@
 class PostsController < ApplicationController
+  before_action :get_post, only: %i[show edit update destroy]
+
   def index
     @posts = Post.by_creation_date_desc
   end
 
   def show
-    @post = Post.find(params[:id])
-    @comments = PostComment.where(post_id: params[:id])
-    user = User.find(current_user[:id])
-    @comment = @post.comments.build({ user_id: current_user[:id]})
+    @comments = @post.comments.by_creation_date_desc
+    @comment = @post.comments.build
   end
 
   def new
@@ -15,11 +15,7 @@ class PostsController < ApplicationController
   end
   
   def create
-    @post = Post.new(post_params)
-    category = Category.find(post_params[:category_id])
-    user = User.find(current_user[:id])
-    @post.category = category
-    @post.user = user
+    @post = current_user.posts.build(post_params)
 
     if @post.save
       redirect_to @post, notice: 'Post created'
@@ -29,12 +25,9 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
   end
 
   def update
-    @post = Post.find(params[:id])
-
     if @post.update(post_params)
       redirect_to @post, notice: 'Post updated'
     else
@@ -43,19 +36,21 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
-
     @post.destroy
     redirect_to posts_url, notice: 'Post deleted'
   end
 
   private
 
+  def get_post
+    @post = Post.find(params[:id])
+  end
+
   def post_params
-    params.require(:post).permit(:category_id, :body, :title, :user_id)
+    params.require(:post).permit(:category_id, :body, :title)
   end
 
   def comment_params
-    params.permit(:body, :post_id, :user_id)
+    params.permit(:body, :post_id)
   end
 end

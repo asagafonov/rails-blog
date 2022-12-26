@@ -1,4 +1,3 @@
-= form_with(comment: @comment, url: url) do |f|
-  = f.label :body
-  = f.text_area :body
-  = f.button :submit
+= simple_form_for(comment, url: url) do |f|
+  = f.text_area :body, class: 'w-100'
+  = f.button :submit, class: 'btn btn-outline-primary mb-4'

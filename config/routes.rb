@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  get 'comments/index'
-  get 'comments/show'
-  get 'comments/new'
-  get 'comments/create'
-  get 'comments/edit'
-  get 'comments/update'
-  get 'comments/destroy'
   root 'posts#index'
   devise_for :users, path_names: { sign_in: 'sign_in', sign_out: 'sign_out', sign_up: 'sign_up' }
 
@@ -17,7 +10,11 @@ Rails.application.routes.draw do
 
   resources :posts do
     scope module: :posts, shallow: true do
-      resources :comments
+      resources :comments, only: %i[show edit update destroy]
+    end
+
+    scope module: :posts do
+      resources :comments, only: %i[index new create]
     end
   end
 end

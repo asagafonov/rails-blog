@@ -17,8 +17,13 @@ p= @post.body
 
 .lead.mb-3 Комментарий
 
-== render 'posts/comments/form', comment: @comment, url: post_comments_url(@post)
+== render 'posts/comments/form', comment: @comment, url: post_comments_path(@post)
 
 - unless @comments.empty?
   - @comments.each do |comment|
-    = comment.body
+    p.mb-2= comment.body
+    .d-flex
+      span.me-2= comment.creator.email
+      - if comment.creator == current_user
+        = link_to 'Edit', edit_comment_url(comment)
+        = link_to 'Delete', comment_url(comment), data: { 'turbo-method': :delete }
