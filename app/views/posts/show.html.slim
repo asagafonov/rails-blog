@@ -4,7 +4,7 @@ ol.breadcrumb
 
 h1.mb-4.mb-lg-5= @post.title
 
-- if @post.creator.email == current_user.email
+- if @post.creator == current_user
   .d-flex.mb-4
     = link_to 'Редактировать', edit_post_url(@post), class: 'btn btn-outline-primary me-2'
     = link_to 'Удалить', @post, data: { 'turbo-method': :delete, confirm: 'Are you sure?' }, class: 'btn btn-outline-danger'
@@ -15,15 +15,23 @@ p= @post.body
   p= @post.creator.email
   p= PostsHelper::TimeSince.amount(@post.created_at)
 
-.lead.mb-3 Комментарий
+.lead.mb-3= "Комментарии: #{@comments.count}"
 
-== render 'posts/comments/form', comment: @comment, url: post_comments_path(@post)
+- if user_signed_in?
+  == render 'posts/comments/form', comment: @comment, url: post_comments_path(@post)
 
 - unless @comments.empty?
-  - @comments.each do |comment|
-    p.mb-2= comment.body
-    .d-flex
-      span.me-2= comment.creator.email
-      - if comment.creator == current_user
-        = link_to 'Edit', edit_comment_url(comment)
-        = link_to 'Delete', comment_url(comment), data: { 'turbo-method': :delete }
+  .card.mb-4
+    - @comments.each do |comment|
+      div(data-controller="nested-comment" data-nested-comment-visible="false")
+        .card-header.px-4= "Автор: #{comment.creator.email}"
+        .card-body.d-flex.p-4
+          p.mb-2= comment.content
+        hr
+        .d-flex.px-4.pb-3
+          button.btn.btn-secondary.me-4(data-action="nested-comment#show" data-nested-comment-target="button") Ответить
+          - if comment.creator == current_user
+            / = link_to 'Edit', edit_comment_url(comment), class: 'me-4'
+            = link_to 'Удалить', comment_url(comment), data: { 'turbo-method': :delete }, class: 'me-4 btn btn-danger'
+        div.mx-4(data-nested-comment-target="form" style="display: none;")
+          == render 'posts/comments/form', comment: @comment, url: post_comments_path(@post, parent_id: @comment.root_id)

@@ -8,8 +8,10 @@ h1.mb-4 Коллективный блог
           .card-body
             h2.h5.card-title
               = link_to post.title, post_url(post), class: 'link-dark text-decoration-none'
-            .card-text.mb-2= post.body
+            .card-text.mb-2= "#{post.body[..300]}..."
             .text-right.small.text-muted.mt-auto
+              span.me-2= "Комментарии: #{post.comments.count}"
+              span.me-2 •
               span.me-2 Понравилось: 0
               span.me-2 •
               span.me-2= PostsHelper::TimeSince.amount(post.created_at)
