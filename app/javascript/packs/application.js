@@ -16,7 +16,5 @@
 // const imagePath = (name) => images(name, true)
 
 import "@hotwired/turbo-rails"  
-// import "./controllers"  
+import "../controllers"  
 import * as bootstrap from "bootstrap"  
-
-console.log('js on')
