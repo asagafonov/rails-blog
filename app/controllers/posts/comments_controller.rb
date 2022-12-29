@@ -11,6 +11,7 @@ module Posts
 
     def create
       @comment = @post.comments.build(comment_params)
+      @comment.ancestry = params[:ancestry]
       @comment.creator = current_user
 
       if @comment.save
@@ -47,7 +48,7 @@ module Posts
     end
 
     def comment_params
-      params.require(:post_comment).permit(:body, :post_id)
+      params.require(:post_comment).permit(:content, :post_id)
     end
   end
 end
