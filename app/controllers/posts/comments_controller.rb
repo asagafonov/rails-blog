@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 module Posts
   class CommentsController < ApplicationController
     before_action :set_post, only: %i[index new create]
     before_action :set_comment, only: %i[edit update destroy]
 
-    def index
-    end
+    def index; end
 
-    def new
-    end
+    def new; end
 
     def create
       @comment = @post.comments.build(comment_params)
@@ -21,8 +21,7 @@ module Posts
       end
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @comment.update(comment_params)

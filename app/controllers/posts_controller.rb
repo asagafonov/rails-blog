@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
-  before_action :get_post, only: %i[show edit update destroy]
+  before_action :set_post, only: %i[show edit update destroy]
 
   def index
     @posts = Post.by_creation_date_desc
@@ -13,7 +15,7 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
   end
-  
+
   def create
     @post = current_user.posts.build(post_params)
 
@@ -24,8 +26,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @post.update(post_params)
@@ -42,7 +43,7 @@ class PostsController < ApplicationController
 
   private
 
-  def get_post
+  def set_post
     @post = Post.find(params[:id])
   end
 
