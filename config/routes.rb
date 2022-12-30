@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     scope module: :posts do
       resources :comments, only: %i[index new create]
+      resources :likes, only: [:create, :destroy]
     end
   end
 end

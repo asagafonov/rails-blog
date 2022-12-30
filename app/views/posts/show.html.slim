@@ -11,9 +11,17 @@ h1.mb-4.mb-lg-5= @post.title
 
 p= @post.body
 
-.d-flex.mt-5.gap-4.mb-4
-  p= @post.creator.email
-  p= PostsHelper::TimeSince.amount(@post.created_at)
+.d-flex.mt-5.gap-4.mb-4.justify-content-between
+  span
+    p= @post.creator.email
+    p= PostsHelper::TimeSince.amount(@post.created_at)
+  span.d-flex.align-items-center
+    span
+      - if @like
+        = button_to image_tag('like_active.png', alt: 'unlike', class: 'w_20'), post_like_path(@post, @like), method: :delete, class: 'like_button'
+      - else
+        = button_to image_tag('like_inactive.png', alt: 'like', class: 'w_20'), post_likes_path(@post), method: :post, class: 'like_button'
+    span= @post.likes.count
 
 .lead.mb-3= "Комментарии: #{@comments.count}"
 

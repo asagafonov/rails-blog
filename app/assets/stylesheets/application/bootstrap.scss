@@ -4,7 +4,17 @@ body {
   padding-bottom: 20px;
 }
 
-.home_button {
+.w_20 {
   width: 20px;
 }
 
+.nested_comment_button {
+  top: 6px;
+  left: -24px;
+}
+
+.like_button {
+  outline: none;
+  border: none;
+  background: transparent;
+}
