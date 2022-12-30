@@ -16,11 +16,14 @@ p= @post.body
     p= @post.creator.email
     p= PostsHelper::TimeSince.amount(@post.created_at)
   span.d-flex.align-items-center
-    span
-      - if @like
-        = button_to image_tag('like_active.png', alt: 'unlike', class: 'w_20'), post_like_path(@post, @like), method: :delete, class: 'like_button'
-      - else
-        = button_to image_tag('like_inactive.png', alt: 'like', class: 'w_20'), post_likes_path(@post), method: :post, class: 'like_button'
+    - if user_signed_in?
+      span
+        - if @like
+          = button_to image_tag('like_active.png', alt: 'unlike', class: 'w_20'), post_like_path(@post, @like), method: :delete, class: 'like_button'
+        - else
+          = button_to image_tag('like_inactive.png', alt: 'like', class: 'w_20'), post_likes_path(@post), method: :post, class: 'like_button'
+    - else
+      = image_tag('like_inactive.png', alt: 'likes', title: 'sign in to like' class: 'w_20')
     span= @post.likes.count
 
 .lead.mb-3= "Комментарии: #{@comments.count}"
