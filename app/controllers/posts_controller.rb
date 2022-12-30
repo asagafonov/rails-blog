@@ -11,7 +11,7 @@ class PostsController < ApplicationController
     @comments = @post.comments.by_creation_date_desc
     @comment = @post.comments.build
 
-    @like = @post.likes.find { |like| like.user_id == current_user.id }
+    @like = @post.likes.find { |like| like.user_id == current_user&.id }
   end
 
   def new

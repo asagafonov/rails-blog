@@ -23,8 +23,9 @@ p= @post.body
         - else
           = button_to image_tag('like_inactive.png', alt: 'like', class: 'w_20'), post_likes_path(@post), method: :post, class: 'like_button'
     - else
-      = image_tag('like_inactive.png', alt: 'likes', title: 'sign in to like' class: 'w_20')
-    span= @post.likes.count
+      span
+        = image_tag('like_inactive.png', alt: 'likes', title: 'sign in to like', class: 'w_20')
+    span.ms-2= @post.likes.count
 
 .lead.mb-3= "Комментарии: #{@comments.count}"
 
