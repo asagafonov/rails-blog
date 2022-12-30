@@ -19,4 +19,5 @@ html
             = user_signed_in? ? (link_to 'Добавить статью', new_post_url, class: 'nav-link link-dark') : (link_to 'Войти', new_user_session_url, class: 'nav-link link-dark')
           li.nav-item.me-2
             = user_signed_in? ? (link_to 'Выйти', destroy_user_session_url, class: 'nav-link link-dark') : (link_to 'Регистрация', new_user_registration_url, class: 'nav-link link-dark') 
+      == render 'layouts/notification'
       = yield

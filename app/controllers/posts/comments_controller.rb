@@ -17,7 +17,7 @@ module Posts
       if @comment.save
         redirect_to post_path(@post), notice: 'Comment was successfully created.'
       else
-        redirect_to post_path(@post), notice: 'Comment creation failed'
+        redirect_to post_path(@post), alert: 'Comment creation failed'
       end
     end
 
@@ -33,7 +33,7 @@ module Posts
 
     def destroy
       @comment.destroy
-      redirect_to post_url(@comment[:post_id])
+      redirect_to post_url(@comment[:post_id]), notice: 'Comment was deleted'
     end
 
     private
