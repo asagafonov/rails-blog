@@ -1,5 +1,5 @@
-h2
-  | Edit 
+h2= t('auth.edit')
+
   = resource_name.to_s.humanize
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, data: { turbo: false }) do |f|
   = render "users/shared/error_messages", resource: resource
@@ -9,34 +9,31 @@ h2
     = f.email_field :email, autofocus: true, autocomplete: "email"
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     div
-      | Currently waiting confirmation for: 
+      span= t('auth.waiting_for_confirmation')
       = resource.unconfirmed_email
   .field
     = f.label :password
-    i
-      | (leave blank if you don't want to change it)
+    i= t('auth.leave_blank')
     br
     = f.password_field :password, autocomplete: "new-password"
     - if @minimum_password_length
       br
       em
-        = @minimum_password_length
-        |  characters minimum
+        | (
+        = "#{@minimum_password_length} #{t('auth.min_length')}"
+        | )
   .field
     = f.label :password_confirmation
     br
     = f.password_field :password_confirmation, autocomplete: "new-password"
   .field
     = f.label :current_password
-    i
-      | (we need your current password to confirm your changes)
+    i= t('auth.need_password')
     br
     = f.password_field :current_password, autocomplete: "current-password"
   .actions
     = f.submit "Update"
-h3
-  | Cancel my account
-p
-  | Unhappy? 
-  = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
-= link_to "Back", :back
+h3= t('auth.cancel')
+p= t('auth.unhappy')
+  = button_to t('auth.cancel_account'), registration_path(resource_name), data: { confirm: t('auth.confirm_deletion') }, method: :delete
+= link_to t('auth.back'), :back

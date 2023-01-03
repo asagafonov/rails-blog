@@ -5,6 +5,11 @@ en:
         title: 'Title'
         body: 'Text'
         category: 'Category'
+      user:
+        email: 'Email'
+        password: 'Password'
+        password_confirmation: 'Confirm password'
+        remember_me: 'Remember me'
     
     errors:
       models:
@@ -33,7 +38,21 @@ en:
     log_in: 'Log in'
     log_out: 'Log out'
     register: 'Register'
-
+    edit: 'Edit'
+    cancel: 'Cancel'
+    cancel_account: 'Cancel account'
+    unhappy: 'Unhappy?'
+    confirm_deletion: 'Are you sure?'
+    back: 'Back'
+    need_password: 'Enter your password to submit changes'
+    leave_blank: 'Leave blank if you dont want to change password'
+    min_length: 'characters minimum'
+    waiting_for_confirmation: 'Please confirm'
+    remember_me: 'Remember me'
+    forgot_password: 'Forgot password?'
+    didnt_receive_instructions: 'Did not receive instructions?'
+    didnt_receive_unlock_instructions: 'Did not receive unlock instructions?'
+    sign_in_with: 'Sign in with'
 
   comments:
     create: 'Publish'
@@ -46,14 +65,17 @@ en:
     day:
       one: '1 day ago'
       few: '%{count} days ago'
+      many: '%{count} days ago'
       other: '%{count} days ago'
 
     hour:
       one: '1 hour ago'
       few: '%{count} hours ago'
+      many: '%{count} hours ago'
       other: '%{count} hours ago'
     
     minute:
       one: '1 minute ago'
       few: '%{count} minutes ago'
+      many: '%{count} minutes ago'
       other: '%{count} minutes ago'

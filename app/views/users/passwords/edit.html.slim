@@ -9,8 +9,8 @@ h2
     - if @minimum_password_length
       em
         | (
-        = @minimum_password_length
-        |  characters minimum)
+        = "#{@minimum_password_length} #{t('auth.min_length')}"
+        | )
       br
     = f.password_field :password, autofocus: true, autocomplete: "new-password"
   .field

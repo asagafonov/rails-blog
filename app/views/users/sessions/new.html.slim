@@ -1,5 +1,5 @@
-h2
-  | Log in
+h2= t('auth.log_in')
+
 = form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }, html: { class: 'simple-form new_user' }) do |f|
   .form-inputs
     .form-group.field.mb-2
@@ -15,5 +15,5 @@ h2
         = f.check_box :remember_me, class: 'form-check-input me-2'
         = f.label :remember_me, class: 'form-check-label'
   .form-actions.my-4
-    = f.submit "Log in", class: 'btn btn-primary'
+    = f.submit t('auth.log_in'), class: 'btn btn-primary'
 = render "users/shared/links"
