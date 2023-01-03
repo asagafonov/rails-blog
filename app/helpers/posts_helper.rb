@@ -5,16 +5,38 @@ module PostsHelper
     class << self
       def amount(created_at)
         time_diff_seconds = Time.current - created_at
-        if time_diff_seconds < 60 * 60
-          time = (time_diff_seconds / 1.minute).floor
-          format(time, :minute)
-        elsif time_diff_seconds < 60 * 60 * 24
-          time = (time_diff_seconds / 1.hour).floor
-          format(time, :hour)
+
+        case time_diff_seconds
+        when [..one_hour_in_seconds]
+          convert_to_minutes(time_diff_seconds)
+        when [one_hour_in_seconds..one_day_in_seconds]
+          convert_to_hours(time_diff_seconds)
         else
-          time = (time_diff_seconds / 1.day).floor
-          format(time, :day)
+          convert_to_days(time_diff_seconds)
         end
+      end
+
+      def one_hour_in_seconds
+        60 * 60
+      end
+
+      def one_day_in_seconds
+        60 * 60 * 24
+      end
+
+      def convert_to_minutes(diff)
+        time = (diff / 1.minute).floor
+        format(time, :minute)
+      end
+
+      def convert_to_hours(diff)
+        time = (diff / 1.hour).floor
+        format(time, :hour)
+      end
+
+      def convert_to_days(diff)
+        time = (diff / 1.day).floor
+        format(time, :day)
       end
 
       def format(time_value, type)

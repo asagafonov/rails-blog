@@ -6,17 +6,13 @@ module Posts
     before_action :set_like, only: :destroy
 
     def create
-      if not_liked_yet?
-        @like = @post.likes.create(user_id: current_user.id)
-      end
+      @like = @post.likes.create(user_id: current_user.id) if not_liked_yet?
 
       redirect_to post_path(@post)
     end
 
     def destroy
-      if already_liked?
-        @like.destroy
-      end
+      @like.destroy if already_liked?
 
       redirect_to post_path(@post)
     end

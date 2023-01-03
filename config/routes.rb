@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  scope "(:locale)", locale: /ru|en/ do
+  scope '(:locale)', locale: /ru|en/ do
     root 'posts#index'
     devise_for :users, path_names: { sign_in: 'sign_in', sign_out: 'sign_out', sign_up: 'sign_up' }
 
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
 
       scope module: :posts do
         resources :comments, only: %i[index new create]
-        resources :likes, only: [:create, :destroy]
+        resources :likes, only: %i[create destroy]
       end
     end
   end
