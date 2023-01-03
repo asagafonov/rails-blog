@@ -1,0 +1,63 @@
+ru:
+  activerecord:
+    attributes:
+      post:
+        title: 'Заголовок'
+        body: 'Текст поста'
+        category: 'Категория'
+    
+    errors:
+      models:
+        post:
+          attributes:
+            blank: 'обязательно к заполнению'
+
+  posts:
+    home: 'На главную'
+    all: 'Все статьи'
+    add_new: 'Добавить статью'
+    blog: 'Коллективный блог'
+    comment:
+      zero: 'Комментариев'
+      one: 'Комментарий'
+      few: 'Комментариев'
+      other: 'Комментариев'
+    likes:
+      liked: 'Понравилось'
+      like: 'Нравится'
+      unlike: 'Не нравится'
+      sign_in_to_like: 'Авторизуйтесь, чтобы поставить лайк'
+    edit: 'Редактировать'
+    edit_full: 'Редактировать статью'
+    save: 'Сохранить'
+    delete: 'Удалить'
+    confirm_deletion: 'Вы уверены?'
+  
+  auth:
+    log_in: 'Войти'
+    log_out: 'Выйти'
+    register: 'Регистрация'
+
+
+  comments:
+    create: 'Опубликовать'
+    respond: 'Ответить'
+    cancel: 'Отмена'
+    delete: 'Удалить'
+    author: 'Автор'
+  
+  time:
+    day:
+      one: '1 день назад'
+      few: '%{count} дня назад'
+      other: '%{count} дней назад'
+
+    hour:
+      one: '1 час назад'
+      few: '%{count} часа назад'
+      other: '%{count} часов назад'
+    
+    minute:
+      one: '1 минуту назад'
+      few: '%{count} минуты назад'
+      other: '%{count} минут назад'

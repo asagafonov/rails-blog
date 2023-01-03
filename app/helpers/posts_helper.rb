@@ -20,11 +20,11 @@ module PostsHelper
       def format(time_value, type)
         case type
         when :minute
-          "#{time_value} минут назад"
+          I18n.t('time.minute', count: time_value)
         when :hour
-          "#{time_value} часов назад"
+          I18n.t('time.hour', count: time_value)
         else
-          "#{time_value} дней назад"
+          I18n.t('time.day', count: time_value)
         end
       end
     end

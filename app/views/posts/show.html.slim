@@ -1,13 +1,13 @@
 ol.breadcrumb
-  li.breadcrumb-item= link_to 'Все статьи', posts_url
+  li.breadcrumb-item= link_to t('posts.all'), posts_url
   li.breadcrumb-item.active= @post.category.name
 
-h1.mb-4.mb-lg-5= @post.title
+h1.mb-4= @post.title
 
 - if @post.creator == current_user
   .d-flex.mb-4
-    = link_to 'Редактировать', edit_post_url(@post), class: 'btn btn-outline-primary me-2'
-    = link_to 'Удалить', @post, data: { 'turbo-method': :delete, confirm: 'Are you sure?' }, class: 'btn btn-outline-danger'
+    = link_to t('posts.edit'), edit_post_url(@post), class: 'btn btn-outline-primary me-2'
+    = link_to t('posts.delete'), @post, data: { 'turbo-method': :delete, 'turbo-confirm': t('posts.confirm_deletion') }, class: 'btn btn-outline-danger'
 
 p= @post.body
 
@@ -19,15 +19,15 @@ p= @post.body
     - if user_signed_in?
       span
         - if @like
-          = button_to image_tag('like_active.png', alt: 'unlike', class: 'w_20'), post_like_path(@post, @like), method: :delete, class: 'like_button'
+          = button_to image_tag('like_active.png', alt: t('likes.unliked'), class: 'w_20'), post_like_path(@post, @like), method: :delete, class: 'like_button'
         - else
-          = button_to image_tag('like_inactive.png', alt: 'like', class: 'w_20'), post_likes_path(@post), method: :post, class: 'like_button'
+          = button_to image_tag('like_inactive.png', alt: t('likes.like'), class: 'w_20'), post_likes_path(@post), method: :post, class: 'like_button'
     - else
       span
-        = image_tag('like_inactive.png', alt: 'likes', title: 'sign in to like', class: 'w_20')
+        = image_tag('like_inactive.png', alt: 'likes', title: t('likes.sign_in_to_like'), class: 'w_20')
     span.ms-2= @post.likes.count
 
-.lead.mb-3= "Комментарии: #{@comments.count}"
+.lead.mb-3= "#{t('posts.comment', count: @comments.count)}: #{@comments.count}"
 
 - if user_signed_in?
   == render 'posts/comments/form', comment: @comment, url: post_comments_path(@post)

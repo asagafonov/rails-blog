@@ -1,4 +1,4 @@
-h1.mb-4 Коллективный блог
+h1.mb-4= t('posts.blog')
 
 - unless @posts.empty?
   - @posts.each do |post|
@@ -10,9 +10,9 @@ h1.mb-4 Коллективный блог
               = link_to post.title, post_url(post), class: 'link-dark text-decoration-none'
             .card-text.mb-2= "#{post.body[..300]}..."
             .text-right.small.text-muted.mt-auto
-              span.me-2= "Комментарии: #{post.comments.count}"
+              span.me-2= "#{t('posts.comment', count: post.comments.count)}: #{post.comments.count}"
               span.me-2 •
-              span.me-2= "Понравилось: #{post.likes.count}"
+              span.me-2= "#{t('posts.likes.liked')}: #{post.likes.count}"
               span.me-2 •
               span.me-2= PostsHelper::TimeSince.amount(post.created_at)
               span.me-2 •

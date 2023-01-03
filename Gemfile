@@ -9,11 +9,13 @@ gem 'ancestry'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'devise'
+gem 'i18n-tasks'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'minitest-power_assert'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.4'
+gem 'rails-i18n'
 gem 'sass-rails'
 gem 'sentry-rails'
 gem 'sentry-ruby'
@@ -33,6 +35,7 @@ group :development do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'faker'
   gem 'html2slim', '~> 0.2.0'
+  gem 'i18n-debug'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'slim_lint'
@@ -42,6 +45,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'minitest-power_assert'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
