@@ -6,10 +6,9 @@ module PostsHelper
       def amount(created_at)
         time_diff_seconds = Time.current - created_at
 
-        case time_diff_seconds
-        when [..one_hour_in_seconds]
+        if time_diff_seconds < one_hour_in_seconds
           convert_to_minutes(time_diff_seconds)
-        when [one_hour_in_seconds..one_day_in_seconds]
+        elsif time_diff_seconds < one_day_in_seconds
           convert_to_hours(time_diff_seconds)
         else
           convert_to_days(time_diff_seconds)
