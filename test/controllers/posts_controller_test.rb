@@ -5,10 +5,11 @@ require 'test_helper'
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @post = posts(:without_comments)
+
     @attrs = {
       title: Faker::Lorem.sentence(word_count: 3),
       body: Faker::Lorem.paragraph,
-      creator: users(:one)
+      category_id: categories(:one).id
     }
 
     get '/users/sign_in'
@@ -31,9 +32,10 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create post' do
     post posts_url, params: { post: @attrs }
-    current_post = Post.find_by @attrs
-    assert { current_post }
-    assert_redirected_to post_url(current_post)
+    post = Post.find_by @attrs
+
+    assert { post }
+    assert_redirected_to post_url(post)
   end
 
   test 'should show post' do
