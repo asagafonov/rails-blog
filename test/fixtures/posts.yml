@@ -4,8 +4,16 @@ one:
   title: MyString
   body: MyText
   category: one
+  creator: one
 
 two:
   title: MyString
   body: MyText
   category: two
+  creator: two
+
+without_comments:
+  title: NoCommentsPost
+  body: NoCommentsPostBody
+  category: one
+  creator: two

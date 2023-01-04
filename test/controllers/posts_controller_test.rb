@@ -3,7 +3,64 @@
 require 'test_helper'
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  include Devise::Test::IntegrationHelpers
+
+  setup do
+    @post = posts(:without_comments)
+    @attrs = {
+      title: Faker::Lorem.sentence(word_count: 3),
+      body: Faker::Lorem.paragraph,
+      creator: users(:one)
+    }
+
+    get '/users/sign_in'
+    sign_in users(:one)
+    post user_session_url
+
+    follow_redirect!
+    assert_response :success
+  end
+
+  test 'should get index' do
+    get posts_url
+    assert_response :success
+  end
+
+  test 'should get new' do
+    get new_post_url
+    assert_response :success
+  end
+
+  test 'should create post' do
+    post posts_url, params: { post: @attrs }
+    current_post = Post.find_by @attrs
+    assert { current_post }
+    assert_redirected_to post_url(current_post)
+  end
+
+  test 'should show post' do
+    get post_url(@post)
+    assert_response :success
+  end
+
+  test 'should get edit' do
+    get edit_post_url(@post)
+    assert_response :success
+  end
+
+  test 'should update post' do
+    patch post_url(@post), params: { post: @attrs }
+
+    @post.reload
+
+    assert { @post.title == @attrs[:title] }
+    assert_redirected_to post_url(@post)
+  end
+
+  test 'should destroy post' do
+    delete post_url(@post)
+
+    assert { !Post.exists?(@post.id) }
+    assert_redirected_to posts_url
+  end
 end
