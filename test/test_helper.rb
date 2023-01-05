@@ -15,14 +15,11 @@ module ActiveSupport
     include Devise::Test::IntegrationHelpers
     include Warden::Test::Helpers
 
-    def log_in(user)
-      if integration_test?
-        login_as(user, scope: :user)
-      else
-        sign_in(user)
-      end
+    def authenticate_user(user)
+      get '/users/sign_in'
+      sign_in user
+      post user_session_url
     end
-
     # Add more helper methods to be used by all tests here...
   end
 end

@@ -12,9 +12,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
       category_id: categories(:one).id
     }
 
-    get '/users/sign_in'
-    sign_in users(:one)
-    post user_session_url
+    authenticate_user users(:one)
 
     follow_redirect!
     assert_response :success
