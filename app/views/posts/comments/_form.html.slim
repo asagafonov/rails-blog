@@ -1,6 +1,6 @@
-= simple_form_for(comment, url: url) do |f|
+= simple_form_for(comment, url:) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-  = f.input :content, as: :text, label: false, wrapper_html: { class: 'form-group '}, input_html: { class: 'form-control mb-2', 'data-nested-comment-target': 'input' }
+  = f.input :content, as: :text, label: false, wrapper_html: { class: 'form-group' }, input_html: { class: 'form-control mb-2', 'data-nested-comment-target': 'input' }
   = f.button :submit, t('comments.create'), class: 'btn btn-primary mb-4'

@@ -1,19 +1,19 @@
-h2= t('auth.log_in')
+h2 = t('auth.log_in')
 
 = form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }, html: { class: 'simple-form new_user' }) do |f|
   .form-inputs
     .form-group.field.mb-2
       = f.label :email
       br
-      = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control'
+      = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
     .form-group.field.mb-2
       = f.label :password
       br
-      = f.password_field :password, autocomplete: "current-password", class: 'form-control'
+      = f.password_field :password, autocomplete: 'current-password', class: 'form-control'
     - if devise_mapping.rememberable?
       .form-group.field
         = f.check_box :remember_me, class: 'form-check-input me-2'
         = f.label :remember_me, class: 'form-check-label'
   .form-actions.my-4
     = f.submit t('auth.log_in'), class: 'btn btn-primary'
-= render "users/shared/links"
+= render 'users/shared/links'
