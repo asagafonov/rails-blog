@@ -17,6 +17,23 @@ ru:
           attributes:
             blank: 'обязательно к заполнению'
 
+  notifications: 
+    posts:
+      created:
+        success: 'Статья опубликована'
+        failure: 'Статья не была опубликована'
+      updated: 'Содержание статьи обновлено'
+      deleted: 'Статья успешно удалена'
+    comments:
+      created:
+        success: 'Вы добавили комментарий'
+        failure: 'При создании комментария произошла ошибка'
+      updated: 'Комментарий обновлен'
+      deleted: 'Комментарий удален'
+
+  meta:
+    title: Rails блог
+
   posts:
     home: 'На главную'
     all: 'Все статьи'

@@ -15,9 +15,9 @@ module Posts
       @comment.creator = current_user
 
       if @comment.save
-        redirect_to post_path(@post), notice: 'Comment was successfully created.'
+        redirect_to post_path(@post), notice: t('notifications.comments.created.success')
       else
-        redirect_to post_path(@post), alert: 'Comment creation failed'
+        redirect_to post_path(@post), alert: t('notifications.comments.created.failure')
       end
     end
 
@@ -25,7 +25,7 @@ module Posts
 
     def update
       if @comment.update(comment_params)
-        redirect_to post_url(@comment[:post_id]), notice: 'Comment was successfully updated.'
+        redirect_to post_url(@comment[:post_id]), notice: t('notifications.comments.updated')
       else
         render :edit, status: :unprocessable_entity
       end
@@ -33,7 +33,7 @@ module Posts
 
     def destroy
       @comment.destroy
-      redirect_to post_url(@comment[:post_id]), notice: 'Comment was deleted'
+      redirect_to post_url(@comment[:post_id]), notice: t('notifications.comments.deleted')
     end
 
     private

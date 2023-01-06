@@ -22,9 +22,9 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
 
     if @post.save
-      redirect_to @post, notice: 'Post created'
+      redirect_to @post, notice: t('notifications.posts.created.success')
     else
-      render :new, status: :unprocessable_entity
+      redirect_to posts_url, alert: t('notifications.posts.created.failure')
     end
   end
 
@@ -32,7 +32,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post updated'
+      redirect_to @post, notice: t('notifications.posts.updated')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,7 +40,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: 'Post deleted'
+    redirect_to posts_url, notice: t('notifications.posts.deleted')
   end
 
   private

@@ -17,6 +17,23 @@ en:
           attributes:
             blank: 'is obligatory'
 
+  notifications: 
+    posts:
+      created:
+        success: 'Post successfully created'
+        failure: 'An error occurred while creating post'
+      updated: 'Post successfully updated'
+      deleted: 'Post was deleted'
+    comments:
+      created:
+        success: 'Comment successfully added'
+        failure: 'Comment creation failed'
+      updated: 'Comment successfully updated'
+      deleted: 'Comment was deleted'
+
+  meta:
+    title: Rails blog
+
   posts:
     home: 'Home'
     all: 'All articles'
