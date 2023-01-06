@@ -2,8 +2,13 @@ import { Controller } from '@hotwired/stimulus';
 import i18n from '../packs/application';
 
 export default class extends Controller {
-  static targets = ['form', 'input', 'button'];
-  static values = { visible: Boolean }
+  static get targets() {
+    return ['form', 'input', 'button'];
+  }
+
+  static get values() {
+    return { visible: Boolean }
+  }
 
   show() {
     const formElement = this.formTarget;
