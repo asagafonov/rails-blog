@@ -3,7 +3,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "webpack ./app/javascript/**/*.js  --bundle --outdir=app/assets/builds --mode=none",
+    "build": "webpack ./app/javascript/**/*.js  --bundle --outdir=app/assets/builds --mode=production",
     "build:css": "sass --load-path=node_modules ./app/assets/stylesheets/application/bootstrap.scss ./app/assets/builds/application.css --no-source-map"
   },
   "dependencies": {
