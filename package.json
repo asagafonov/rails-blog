@@ -6,7 +6,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "build": "webpack ./app/javascript/**/*.js  --bundle --outdir=dist --mode=production",
+    "build": "webpack ./app/packs/**/*.js  --bundle --outdir=dist --mode=production",
     "build:css": "sass --load-path=node_modules ./app/assets/stylesheets/application.scss ./app/assets/builds/application.css --no-source-map"
   },
   "dependencies": {
