@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import i18n from '../packs/application';
+import i18n from '../i18n/i18n';
 
 export default class extends Controller {
   static get targets() {
