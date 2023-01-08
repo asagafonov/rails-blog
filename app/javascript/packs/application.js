@@ -15,7 +15,28 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import '@hotwired/turbo-rails';
-import '../controllers';
-import '../stylesheets/application.scss';
-import * as bootstrap from 'bootstrap';
+import "@hotwired/turbo-rails"  
+import "../controllers"  
+import * as bootstrap from "bootstrap"  
+import { I18n } from 'i18n-js';
+
+const i18n = new I18n({
+  ru: {
+    comments: {
+      respond: 'Ответить',
+      cancel: 'Отмена',
+    },
+  },
+  en: {
+    comments: {
+      respond: 'Respond',
+      cancel: 'Cancel',
+    },
+  },
+});
+
+i18n.defaultLocale = 'ru';
+const currentLocale = window.location.pathname.includes('/en') ? 'en' : i18n.defaultLocale;
+i18n.locale = currentLocale;
+
+export default i18n;

@@ -13,24 +13,3 @@
  *= require_tree .
  *= require_self
  */
-
-@import '~bootstrap/scss/bootstrap';  
-
-body {
-  padding-bottom: 20px;
-}
-
-.w_20 {
-  width: 20px;
-}
-
-.nested_comment_button {
-  top: 6px;
-  left: -24px;
-}
-
-.like_button {
-  outline: none;
-  border: none;
-  background: transparent;
-}
