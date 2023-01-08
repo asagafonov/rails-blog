@@ -6,8 +6,8 @@
     "node": "16.x"
   },
   "scripts": {
-    "build": "webpack ./app/packs/**/*.js  --bundle --outdir=dist --mode=production",
-    "build:css": "sass --load-path=node_modules ./app/assets/stylesheets/application.scss ./app/assets/builds/application.css --no-source-map"
+    "build": "esbuild app/javascript/**/*.js --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.1",
@@ -16,12 +16,11 @@
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "5.4.0",
     "bootstrap": "^5.1.1",
+    "esbuild": "^0.16.15",
     "i18n-js": "^4.2.2",
-    "turbolinks": "^5.2.0",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "sass": "^1.57.1",
+    "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
   "devDependencies": {
