@@ -15,9 +15,9 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import "@hotwired/turbo-rails"  
-import "../controllers"  
-import * as bootstrap from "bootstrap"  
+import '@hotwired/turbo-rails'
+import './controllers'
+import * as bootstrap from 'bootstrap'
 import { I18n } from 'i18n-js';
 
 const i18n = new I18n({
