@@ -27,5 +27,8 @@ jobs:
     - name: Install dependencies
       run: make install
 
+    - name: Build
+      run: make build
+
     - name: Run linter and tests
       run: make start-rake
