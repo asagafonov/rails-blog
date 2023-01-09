@@ -12,7 +12,7 @@ module Posts
     def create
       @comment = @post.comments.build(comment_params)
       @comment.ancestry = params[:ancestry]
-      @comment.creator = current_user
+      @comment.user = current_user
 
       if @comment.save
         redirect_to post_path(@post), notice: t('notifications.comments.created.success')

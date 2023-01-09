@@ -1,7 +1,7 @@
 .position-relative(data-controller="nested-comment" data-nested-comment-visible="false")
   - if indent > 1
     = image_tag('nested_comment_arrow.png', class: 'position-absolute nested_comment_button w_20')
-  .card-header.px-4 = "#{t("comments.author")}: #{comment.creator.email}"
+  .card-header.px-4 = "#{t("comments.author")}: #{comment.user.email}"
   .card-body.d-flex.p-4
     p.mb-2 = comment.content
   hr
@@ -10,7 +10,7 @@
     .d-flex.px-4.pb-3
       button.btn.btn-outline-secondary.me-2(data-action="nested-comment#show" data-nested-comment-target="button") = t('comments.respond')
 
-      - if comment.creator == current_user
+      - if comment.user == current_user
         = link_to t('comments.delete'), comment_url(comment), data: { 'turbo-method': :delete }, class: 'me-4 btn btn-outline-danger'
 
     .mx-4(data-nested-comment-target="form" style="display: none;")
