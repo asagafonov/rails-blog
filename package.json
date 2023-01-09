@@ -6,8 +6,8 @@
     "node": "16.x"
   },
   "scripts": {
-    "build": "esbuild app/javascript/**/*.js --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
-    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.1",
@@ -17,7 +17,7 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "bootstrap": "^5.1.1",
-    "esbuild": "^0.16.15",
+    "esbuild": "^0.16.16",
     "i18n-js": "^4.2.2",
     "sass": "^1.57.1",
     "turbolinks": "^5.2.0"

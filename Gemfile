@@ -9,6 +9,7 @@ gem 'ancestry'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'devise'
+gem 'esbuild-rails'
 gem 'i18n-tasks'
 gem 'jbuilder'
 gem 'jsbundling-rails'
