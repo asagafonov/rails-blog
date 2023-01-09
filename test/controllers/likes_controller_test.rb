@@ -20,7 +20,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference('PostLike.count') do
       post post_likes_url(@post)
     end
-    
+
     assert_redirected_to post_url(@post)
   end
 

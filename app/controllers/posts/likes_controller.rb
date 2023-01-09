@@ -28,7 +28,7 @@ module Posts
     end
 
     def already_liked?
-      PostLike.where(user_id: current_user.id, post_id: params[:post_id]).exists?
+      PostLike.exists?(user_id: current_user.id, post_id: params[:post_id])
     end
 
     def not_liked_yet?
