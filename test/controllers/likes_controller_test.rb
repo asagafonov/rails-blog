@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'faker'
 
 class LikesControllerTest < ActionDispatch::IntegrationTest
   setup do
