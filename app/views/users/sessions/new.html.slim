@@ -1,19 +1,11 @@
 h2 = t('auth.log_in')
 
-= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }, html: { class: 'simple-form new_user' }) do |f|
-  .form-inputs
-    .form-group.field.mb-2
-      = f.label :email
-      br
-      = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
-    .form-group.field.mb-2
-      = f.label :password
-      br
-      = f.password_field :password, autocomplete: 'current-password', class: 'form-control'
-    - if devise_mapping.rememberable?
-      .form-group.field
-        = f.check_box :remember_me, class: 'form-check-input me-2'
-        = f.label :remember_me, class: 'form-check-label'
-  .form-actions.my-4
-    = f.submit t('auth.log_in'), class: 'btn btn-primary'
+= simple_form_for(resource, url: session_path(resource_name), data: { turbo: false }, class: 'simple-form new_user') do |f|
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  = f.input :email, autofocus: true, autocomplete: 'email', wrapper_html: { class: 'form-group mb-2' }, input_html: { class: 'form-control' }, error_html: { class: 'text-danger' }
+  = f.input :password, autofocus: true, autocomplete: 'current-password', wrapper_html: { class: 'form-group mb-2' }, input_html: { class: 'form-control', error_html: { class: 'text-danger' }}
+  = f.input :remember_me, as: :boolean, wrapper_html: { class: 'form-group mb-2' }, input_html: { class: 'form-check-input me-2' }
+  = f.submit t('auth.log_in'), class: 'btn btn-primary'
+
 = render 'users/shared/links'

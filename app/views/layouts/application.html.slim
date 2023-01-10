@@ -20,7 +20,7 @@ html
               = link_to t('auth.log_in'), new_user_session_url, class: 'nav-link link-dark'
           li.nav-item.me-2
             - if user_signed_in?
-              = link_to t('auth.log_out'), destroy_user_session_url, class: 'nav-link link-dark'
+              = link_to t('auth.log_out'), destroy_user_session_url, data: { 'turbo-method': 'delete' }, class: 'nav-link link-dark'
             - else
               = link_to t('auth.register'), new_user_registration_url, class: 'nav-link link-dark'
       == render 'layouts/notification'
