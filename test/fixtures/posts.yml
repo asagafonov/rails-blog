@@ -16,4 +16,4 @@ without_comments:
   title: NoCommentsPost
   body: NoCommentsPostBody
   category: one
-  creator: two
+  creator: one

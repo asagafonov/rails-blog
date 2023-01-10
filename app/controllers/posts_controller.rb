@@ -30,9 +30,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    unless belongs_to_user(@post)
-      redirect_to @post, alert: t('notifications.posts.forbidden.edit')
-    end
+    redirect_to @post, alert: t('notifications.posts.forbidden.edit') unless belongs_to_user(@post)
   end
 
   def update

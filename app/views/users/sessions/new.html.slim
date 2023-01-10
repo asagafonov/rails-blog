@@ -4,8 +4,11 @@ h2 = t('auth.log_in')
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   = f.input :email, autofocus: true, autocomplete: 'email', wrapper_html: { class: 'form-group mb-2' }, input_html: { class: 'form-control' }, error_html: { class: 'text-danger' }
-  = f.input :password, autofocus: true, autocomplete: 'current-password', wrapper_html: { class: 'form-group mb-2' }, input_html: { class: 'form-control', error_html: { class: 'text-danger' }}
+  = f.input :password, autofocus: true, autocomplete: 'current-password',
+                                        wrapper_html: { class: 'form-group mb-2' },
+                                        input_html: { class: 'form-control' },
+                                        error_html: { class: 'text-danger' }
   = f.input :remember_me, as: :boolean, wrapper_html: { class: 'form-group mb-2' }, input_html: { class: 'form-check-input me-2' }
-  = f.submit t('auth.log_in'), class: 'btn btn-primary'
+  = f.submit t('auth.log_in'), class: 'btn btn-primary my-2'
 
 = render 'users/shared/links'
