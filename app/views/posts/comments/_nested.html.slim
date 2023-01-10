@@ -11,7 +11,7 @@
       button.btn.btn-outline-secondary.me-2(data-action="nested-comment#show" data-nested-comment-target="button") = t('comments.respond')
 
       - if comment.user == current_user
-        = link_to t('comments.delete'), comment_url(comment), data: { 'turbo-method': :delete }, class: 'me-4 btn btn-outline-danger'
+        = link_to t('comments.delete'), comment_url(comment), data: { 'turbo-method': :delete, 'turbo-confirm': t('comments.confirm_deletion') }, class: 'me-4 btn btn-outline-danger'
 
     .mx-4(data-nested-comment-target="form" style="display: none;")
       == render 'posts/comments/form', comment: @comment, url: post_comments_path(post, ancestry: comment.ancestry ? "#{comment.ancestry}/#{comment.id}" : comment.id)

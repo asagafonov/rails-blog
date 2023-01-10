@@ -80,6 +80,7 @@ ru:
     cancel: 'Отмена'
     delete: 'Удалить'
     author: 'Автор'
+    confirm_deletion: 'Вы уверены, что хотите удалить комментарий?'
   
   time:
     day:
