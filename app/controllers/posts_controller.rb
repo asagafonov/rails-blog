@@ -25,7 +25,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, notice: t('notifications.posts.created.success')
     else
-      redirect_to posts_url, alert: t('notifications.posts.created.failure')
+      render :new, status: :unprocessable_entity
     end
   end
 
