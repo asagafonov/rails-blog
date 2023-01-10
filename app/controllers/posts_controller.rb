@@ -29,7 +29,11 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    unless belongs_to_user(@post)
+      redirect_to @post, alert: t('notifications.posts.forbidden.edit')
+    end
+  end
 
   def update
     if @post.update(post_params)
@@ -40,11 +44,19 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
-    redirect_to posts_url, notice: t('notifications.posts.deleted')
+    if belongs_to_user(@post)
+      @post.destroy
+      redirect_to posts_url, notice: t('notifications.posts.deleted')
+    else
+      redirect_to @post, alert: t('notifications.posts.forbidden.delete')
+    end
   end
 
   private
+
+  def belongs_to_user(post)
+    post.creator.email == current_user.email
+  end
 
   def set_post
     @post = Post.find(params[:id])
