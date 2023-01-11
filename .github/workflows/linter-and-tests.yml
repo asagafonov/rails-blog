@@ -30,5 +30,8 @@ jobs:
     - name: Build
       run: make build
 
-    - name: Run linter and tests
+    - name: Run linter
+      run: make lint
+
+    - name: Run tests
       run: make start-rake

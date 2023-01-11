@@ -7,11 +7,11 @@ html
     = csp_meta_tag
     = stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: 'true'
-  body.d-flex.flex-column.h-100
+  body.d-flex.flex-column.h-100.pb-20
     .container.mb-2
       .d-flex.flex-wrap.align-items-center.py-2.border-bottom.mb-4
         .navbar.navbar-expand-md.navbar-light.me-auto
-          = link_to (image_tag 'home.png', alt: t('posts.home'), title: t('posts.home'), class: 'w_20'), root_path, class: 'navbar-brand me-md-4'
+          = link_to (image_tag 'home.png', alt: t('posts.home'), title: t('posts.home'), class: 'w-25'), root_path, class: 'navbar-brand me-md-4'
         ul.nav.nav-pills
           li.nav-item.me-2
             - if user_signed_in?
@@ -20,7 +20,7 @@ html
               = link_to t('auth.log_in'), new_user_session_url, class: 'nav-link link-dark'
           li.nav-item.me-2
             - if user_signed_in?
-              = link_to t('auth.log_out'), destroy_user_session_url, class: 'nav-link link-dark'
+              = link_to t('auth.log_out'), destroy_user_session_url, data: { 'turbo-method': 'delete' }, class: 'nav-link link-dark'
             - else
               = link_to t('auth.register'), new_user_registration_url, class: 'nav-link link-dark'
       == render 'layouts/notification'

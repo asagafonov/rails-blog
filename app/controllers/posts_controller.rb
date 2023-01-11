@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
@@ -24,11 +25,13 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, notice: t('notifications.posts.created.success')
     else
-      redirect_to posts_url, alert: t('notifications.posts.created.failure')
+      render :new, status: :unprocessable_entity
     end
   end
 
-  def edit; end
+  def edit
+    redirect_to @post, alert: t('notifications.posts.forbidden.edit') unless belongs_to_user(@post)
+  end
 
   def update
     if @post.update(post_params)
@@ -39,11 +42,19 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
-    redirect_to posts_url, notice: t('notifications.posts.deleted')
+    if belongs_to_user(@post)
+      @post.destroy
+      redirect_to posts_url, notice: t('notifications.posts.deleted')
+    else
+      redirect_to @post, alert: t('notifications.posts.forbidden.delete')
+    end
   end
 
   private
+
+  def belongs_to_user(post)
+    post.creator.email == current_user.email
+  end
 
   def set_post
     @post = Post.find(params[:id])

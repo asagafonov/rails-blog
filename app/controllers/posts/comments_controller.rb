@@ -32,11 +32,19 @@ module Posts
     end
 
     def destroy
-      @comment.destroy
-      redirect_to post_url(@comment[:post_id]), notice: t('notifications.comments.deleted')
+      if belongs_to_user(@comment)
+        @comment.destroy
+        redirect_to post_url(@comment[:post_id]), notice: t('notifications.comments.deleted')
+      else
+        redirect_to post_url(@comment[:post_id]), alert: t('notifications.comments.forbidden.delete')
+      end
     end
 
     private
+
+    def belongs_to_user(comment)
+      comment.user.email == current_user.email
+    end
 
     def set_post
       @post = Post.find(params[:post_id])

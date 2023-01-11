@@ -24,12 +24,17 @@ en:
         failure: 'An error occurred while creating post'
       updated: 'Post successfully updated'
       deleted: 'Post was deleted'
+      forbidden:
+        edit: 'You cannot edit this article'
+        delete: 'You cannot delete this article'
     comments:
       created:
         success: 'Comment successfully added'
         failure: 'Comment creation failed'
       updated: 'Comment successfully updated'
       deleted: 'Comment was deleted'
+      forbidden:
+        delete: 'You cannot delete this comment'
 
   meta:
     title: Rails blog
@@ -77,6 +82,7 @@ en:
     cancel: 'Cancel'
     delete: 'Delete'
     author: 'Author'
+    confirm_deletion: 'Are you sure you want to delete comment?'
   
   time:
     day:

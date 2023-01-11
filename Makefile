@@ -6,7 +6,7 @@ build:
 
 lint:
 	bundle exec rubocop ./app
-	slim-lint ./app/views/
+	bundle exec slim-lint ./app/views/
 
 test:
 	rake test
