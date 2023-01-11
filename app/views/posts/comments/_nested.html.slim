@@ -1,6 +1,4 @@
 .position-relative(data-controller="nested-comment" data-nested-comment-visible="false")
-  - if indent > 1
-    = image_tag('nested_comment_arrow.png', class: 'position-absolute nested_comment_button w_20')
   .card-header.px-4 = "#{t("comments.author")}: #{comment.user.email}"
   .card-body.d-flex.p-4
     p.mb-2 = comment.content
