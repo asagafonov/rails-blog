@@ -2,14 +2,16 @@
 
 module Posts
   class CommentsController < ApplicationController
-    before_action :set_post, only: %i[index new create]
-    before_action :set_comment, only: %i[edit update destroy]
+    def index
+      @post = set_post
+    end
 
-    def index; end
-
-    def new; end
+    def new
+      @post = set_post
+    end
 
     def create
+      @post = set_post
       @comment = @post.comments.build(comment_params)
       @comment.ancestry = params[:ancestry]
       @comment.user = current_user
@@ -21,9 +23,13 @@ module Posts
       end
     end
 
-    def edit; end
+    def edit
+      @comment = set_comment
+    end
 
     def update
+      @comment = set_comment
+
       if @comment.update(comment_params)
         redirect_to post_url(@comment[:post_id]), notice: t('notifications.comments.updated')
       else
@@ -32,6 +38,8 @@ module Posts
     end
 
     def destroy
+      @comment = set_comment
+
       if belongs_to_user(@comment)
         @comment.destroy
         redirect_to post_url(@comment[:post_id]), notice: t('notifications.comments.deleted')

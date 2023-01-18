@@ -2,16 +2,16 @@
 
 module Posts
   class LikesController < ApplicationController
-    before_action :set_post
-    before_action :set_like, only: :destroy
-
     def create
+      @post = set_post
       @like = @post.likes.create(user_id: current_user.id) if not_liked_yet?
 
       redirect_to post_path(@post)
     end
 
     def destroy
+      @post = set_post
+      @like = set_like
       @like.destroy if already_liked?
 
       redirect_to post_path(@post)
