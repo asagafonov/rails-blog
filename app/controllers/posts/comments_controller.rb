@@ -2,14 +2,6 @@
 
 module Posts
   class CommentsController < ApplicationController
-    def index
-      @post = set_post
-    end
-
-    def new
-      @post = set_post
-    end
-
     def create
       @post = set_post
       @comment = @post.comments.build(comment_params)
@@ -20,20 +12,6 @@ module Posts
         redirect_to post_path(@post), notice: t('notifications.comments.created.success')
       else
         redirect_to post_path(@post), alert: t('notifications.comments.created.failure')
-      end
-    end
-
-    def edit
-      @comment = set_comment
-    end
-
-    def update
-      @comment = set_comment
-
-      if @comment.update(comment_params)
-        redirect_to post_url(@comment[:post_id]), notice: t('notifications.comments.updated')
-      else
-        render :edit, status: :unprocessable_entity
       end
     end
 
