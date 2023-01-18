@@ -63,7 +63,7 @@ class PostsController < ApplicationController
   private
 
   def post_belongs_to_user?
-    @post.user_id == current_user.id
+    @post.user_id == current_user&.id
   end
 
   def set_post

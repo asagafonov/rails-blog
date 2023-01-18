@@ -29,7 +29,7 @@ module Posts
     private
 
     def comment_belongs_to_user?
-      @comment.user_id == current_user.id
+      @comment.user_id == current_user&.id
     end
 
     def set_post
