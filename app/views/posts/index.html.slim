@@ -15,6 +15,6 @@ h1.mb-4 = t('posts.blog')
             span.me-2 •
             span.me-2 = "#{t("posts.likes.liked")}: #{post.likes.size}"
             span.me-2 •
-            span.me-2 = PostsHelper::TimeSince.amount(post.created_at)
+            span.me-2 = "#{time_ago_in_words(post.created_at)} #{t('time.ago')}"
             span.me-2 •
             span = @users.find(post[:user_id]).email
