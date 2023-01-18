@@ -5,12 +5,8 @@ Rails.application.routes.draw do
   devise_for :users, controller: { sessions: 'users/sessions', registrations: 'users/registrations' }
 
   resources :posts do
-    scope module: :posts, shallow: true do
-      resources :comments, only: %i[show edit update destroy]
-    end
-
     scope module: :posts do
-      resources :comments, only: %i[index new create]
+      resources :comments, only: %i[create destroy]
       resources :likes, only: %i[create destroy]
     end
   end

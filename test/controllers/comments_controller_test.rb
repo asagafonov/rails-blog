@@ -27,12 +27,12 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   test 'should destroy nested post comments' do
     # delete branch comment
     assert_difference('PostComment.count', - 1) do
-      delete comment_url(@deep_nested_comment)
+      delete post_comment_url(@post, @deep_nested_comment)
     end
 
     # delete root comment (sibling is also destroyed)
     assert_difference('PostComment.count', -2) do
-      delete comment_url(@comment)
+      delete post_comment_url(@post, @comment)
     end
 
     assert_redirected_to post_path(@post)

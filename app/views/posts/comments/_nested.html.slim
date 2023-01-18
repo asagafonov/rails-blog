@@ -9,7 +9,7 @@
       button.btn.btn-outline-secondary.me-2(data-action="nested-comment#show" data-nested-comment-target="button") = t('comments.respond')
 
       - if comment.user_id == current_user.id
-        = link_to t('comments.delete'), comment_url(comment), data: { 'turbo-method': :delete, 'turbo-confirm': t('comments.confirm_deletion') },
+        = link_to t('comments.delete'), post_comment_url(post, comment), data: { 'turbo-method': :delete, 'turbo-confirm': t('comments.confirm_deletion') },
                                                               class: 'me-4 btn btn-outline-danger'
 
     .mx-4(data-nested-comment-target="form" style="display: none;")
