@@ -2,13 +2,13 @@
 
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :set_post, only: %i[show edit update destroy]
 
   def index
     @posts = Post.by_creation_date_desc
   end
 
   def show
+    @post = set_post
     @comments = @post.comments.by_creation_date_desc
     @comment = @post.comments.build
 
@@ -30,10 +30,14 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = set_post
+
     redirect_to @post, alert: t('notifications.posts.forbidden.edit') unless belongs_to_user(@post)
   end
 
   def update
+    @post = set_post
+
     if @post.update(post_params)
       redirect_to @post, notice: t('notifications.posts.updated')
     else
@@ -42,6 +46,8 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    @post = set_post
+
     if belongs_to_user(@post)
       @post.destroy
       redirect_to posts_url, notice: t('notifications.posts.deleted')
