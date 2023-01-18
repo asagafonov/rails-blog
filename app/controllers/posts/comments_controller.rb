@@ -41,7 +41,7 @@ module Posts
     end
 
     def comment_params
-      params.require(:post_comment).permit(:content, :post_id)
+      params.require(:post_comment).permit(:content)
     end
   end
 end
