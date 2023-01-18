@@ -1,19 +1,20 @@
+- max_len = 470
+
 h1.mb-4 = t('posts.blog')
 
-- unless @posts.empty?
-  - @posts.each do |post|
-    .row
-      .col-md-12
-        .card.mb-3
-          .card-body
-            h2.h5.card-title
-              = link_to post.title, post_url(post), class: 'link-dark text-decoration-none'
-            .card-text.mb-2 = post.body.length > 300 ? "#{post.body[..300]}..." : post.body
-            .text-right.small.text-muted.mt-auto
-              span.me-2 = "#{t("posts.comment", count: post.comments.count)}: #{post.comments.count}"
-              span.me-2 •
-              span.me-2 = "#{t("posts.likes.liked")}: #{post.likes.count}"
-              span.me-2 •
-              span.me-2 = PostsHelper::TimeSince.amount(post.created_at)
-              span.me-2 •
-              span = post.creator.email
+- @posts.each do |post|
+  .row
+    .col-md-12
+      .card.mb-3
+        .card-body
+          h2.h5.card-title
+            = link_to post.title, post_url(post), class: 'link-dark text-decoration-none'
+          .card-text.mb-2 = post.body.truncate(max_len)
+          .text-right.small.text-muted.mt-auto
+            span.me-2 = "#{t("posts.comment", count: post.comments.count)}: #{post.comments.count}"
+            span.me-2 •
+            span.me-2 = "#{t("posts.likes.liked")}: #{post.likes.count}"
+            span.me-2 •
+            span.me-2 = PostsHelper::TimeSince.amount(post.created_at)
+            span.me-2 •
+            span = post.creator.email
