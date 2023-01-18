@@ -8,7 +8,7 @@
     .d-flex.px-4.pb-3
       button.btn.btn-outline-secondary.me-2(data-action="nested-comment#show" data-nested-comment-target="button") = t('comments.respond')
 
-      - if comment.user == current_user
+      - if comment.user_id == current_user.id
         = link_to t('comments.delete'), comment_url(comment), data: { 'turbo-method': :delete, 'turbo-confirm': t('comments.confirm_deletion') },
                                                               class: 'me-4 btn btn-outline-danger'
 

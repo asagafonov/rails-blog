@@ -4,7 +4,7 @@ ol.breadcrumb
 
 h1.mb-4 = @post.title
 
-- if @post.creator == current_user
+- if @post.user_id == current_user.id
   .d-flex.mb-4
     = link_to t('posts.edit'), edit_post_url(@post), class: 'btn btn-outline-primary me-2'
     = link_to t('posts.delete'), @post, data: { 'turbo-method': :delete, 'turbo-confirm': t('posts.confirm_deletion') }, class: 'btn btn-outline-danger'
