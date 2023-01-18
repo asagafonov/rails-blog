@@ -69,4 +69,14 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert { !Post.exists?(@post.id) }
     assert_redirected_to posts_url
   end
+
+  test 'should not allow post creation for unauthenticated users' do
+    delete destroy_user_session_url
+
+    post posts_url, params: { post: @attrs }
+    post = Post.find_by @attrs
+
+    refute { post }
+    assert_redirected_to new_user_session_path
+  end
 end
