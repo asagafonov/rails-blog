@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.by_creation_date_desc
+    @users = User.all
   end
 
   def show
