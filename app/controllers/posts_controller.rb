@@ -48,7 +48,7 @@ class PostsController < ApplicationController
   def destroy
     @post = set_post
 
-    if belongs_to_user(@post)
+    if post_belongs_to_user?
       @post.destroy
       redirect_to posts_url, notice: t('notifications.posts.deleted')
     else
@@ -58,8 +58,8 @@ class PostsController < ApplicationController
 
   private
 
-  def belongs_to_user(post)
-    post.creator.email == current_user.email
+  def post_belongs_to_user?
+    @post.user_id == current_user.id
   end
 
   def set_post

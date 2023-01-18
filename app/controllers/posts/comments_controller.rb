@@ -18,7 +18,7 @@ module Posts
     def destroy
       @comment = set_comment
 
-      if belongs_to_user(@comment)
+      if comment_belongs_to_user?
         @comment.destroy
         redirect_to post_url(@comment[:post_id]), notice: t('notifications.comments.deleted')
       else
@@ -28,8 +28,8 @@ module Posts
 
     private
 
-    def belongs_to_user(comment)
-      comment.user.email == current_user.email
+    def comment_belongs_to_user?
+      @comment.user_id == current_user.id
     end
 
     def set_post
