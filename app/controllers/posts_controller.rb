@@ -38,6 +38,10 @@ class PostsController < ApplicationController
   def update
     @post = set_post
 
+    unless current_user.posts.include?(@post)
+      redirect_to posts_path, notice: t('notifications.posts.forbidden.edit') and return
+    end
+
     if @post.update(post_params)
       redirect_to @post, notice: t('notifications.posts.updated')
     else
