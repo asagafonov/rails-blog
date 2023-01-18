@@ -31,6 +31,34 @@ Create and like posts in given categories, discuss threads via nested comments w
 <hr>
 <br>
 
+### Launch project locally
+
+<br>
+
+Set correct versions
+```
+16.19.0 for NodeJS
+3.1.2 for Ruby
+```
+
+Install dependencies
+```
+bundle install
+yarn install
+```
+Run server
+```
+bin/rails server
+```
+Visit project locally
+```
+http://localhost:3000
+```
+
+<br>
+<hr>
+<br>
+
 ### Coded by
 
 <br>
