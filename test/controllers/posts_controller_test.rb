@@ -5,6 +5,7 @@ require 'test_helper'
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @post = posts(:without_comments)
+    @not_my_post = posts(:two)
 
     @attrs = {
       title: Faker::Lorem.sentence(word_count: 3),
@@ -53,6 +54,13 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
     assert { @post.title == @attrs[:title] }
     assert_redirected_to post_url(@post)
+  end
+
+  test "should not update other person's post" do
+    patch post_url(@not_my_post), params: { post: @attrs }
+
+    assert_redirected_to posts_url
+    refute { @not_my_post.title == @attrs[:title] }
   end
 
   test 'should destroy post' do
