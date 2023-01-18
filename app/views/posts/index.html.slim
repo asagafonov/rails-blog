@@ -11,9 +11,9 @@ h1.mb-4 = t('posts.blog')
             = link_to post.title, post_url(post), class: 'link-dark text-decoration-none'
           .card-text.mb-2 = post.body.truncate(max_len)
           .text-right.small.text-muted.mt-auto
-            span.me-2 = "#{t("posts.comment", count: post.comments.size)}: #{post.comments.size}"
+            span.me-2 = "#{t("posts.comment", count: post.comments_count)}: #{post.comments_count}"
             span.me-2 •
-            span.me-2 = "#{t("posts.likes.liked")}: #{post.likes.size}"
+            span.me-2 = "#{t("posts.likes.liked")}: #{post.likes_count}"
             span.me-2 •
             span.me-2 = "#{time_ago_in_words(post.created_at)} #{t('time.ago')}"
             span.me-2 •
