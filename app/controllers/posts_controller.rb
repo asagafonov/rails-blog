@@ -63,8 +63,4 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:category_id, :body, :title)
   end
-
-  def comment_params
-    params.permit(:body, :post_id)
-  end
 end
