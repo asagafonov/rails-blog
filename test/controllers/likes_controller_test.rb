@@ -9,7 +9,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
     @post2 = posts(:two)
     @like = post_likes(:deletable)
 
-    authenticate_user users(:one)
+    sign_in users(:one)
   end
 
   test 'should create like once' do

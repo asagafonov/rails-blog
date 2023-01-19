@@ -9,7 +9,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     @nested_comment = post_comments(:nested)
     @deep_nested_comment = post_comments(:deep_nested)
 
-    authenticate_user users(:one)
+    sign_in users(:one)
   end
 
   test 'should create nested post comments' do

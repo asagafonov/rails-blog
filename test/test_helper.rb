@@ -13,13 +13,6 @@ module ActiveSupport
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
     include Devise::Test::IntegrationHelpers
-    include Warden::Test::Helpers
-
-    def authenticate_user(user)
-      get '/users/sign_in'
-      sign_in user
-      post user_session_url
-    end
     # Add more helper methods to be used by all tests here...
   end
 end

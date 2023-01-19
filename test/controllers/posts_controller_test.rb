@@ -13,10 +13,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
       category_id: categories(:one).id
     }
 
-    authenticate_user users(:one)
-
-    follow_redirect!
-    assert_response :success
+    sign_in users(:one)
   end
 
   test 'should get index' do
