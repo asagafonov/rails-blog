@@ -5,7 +5,7 @@ module Posts
     def create
       @post = set_post
       @comment = @post.comments.build(comment_params)
-      @comment.ancestry = params[:ancestry]
+      @comment.parent_id = params[:parent_id] || nil
       @comment.user = current_user
 
       if @comment.save
@@ -41,7 +41,7 @@ module Posts
     end
 
     def comment_params
-      params.require(:post_comment).permit(:content, :parent_id)
+      params.require(:post_comment).permit(:content)
     end
   end
 end
