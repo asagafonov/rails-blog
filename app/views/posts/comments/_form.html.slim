@@ -2,5 +2,5 @@
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   = f.input :parent_id, as: :hidden
-  = f.input :content, as: :text, input_html: { 'data-nested-comment-target': 'input' }
+  = f.input :content, as: :text, label: false, input_html: { 'data-nested-comment-target': 'input' }
   = f.button :submit, t('comments.create'), class: 'btn btn-primary mt-2 mb-4'
