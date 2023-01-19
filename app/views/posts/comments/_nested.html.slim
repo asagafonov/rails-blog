@@ -18,5 +18,5 @@
 
   - if comment.has_children?
     - comment.children.each do |nested_comment|
-      div(style="margin-left: #{indent * 2}rem; width: calc(100% - #{indent * 2}rem)")
+      div(style="margin-left: #{indent * 2}rem;")
         == render 'posts/comments/nested', comment: nested_comment, post:, indent: indent + 1 > 6 ? indent : indent + 1
