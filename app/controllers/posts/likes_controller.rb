@@ -4,7 +4,7 @@ module Posts
   class LikesController < ApplicationController
     def create
       @post = set_post
-      @like = @post.likes.create(user_id: current_user.id) if not_liked_yet?
+      @like = @post.likes.create(user_id: current_user&.id) if not_liked_yet?
 
       redirect_to post_path(@post)
     end
@@ -28,7 +28,7 @@ module Posts
     end
 
     def already_liked?
-      PostLike.exists?(user_id: current_user.id, post_id: params[:post_id])
+      PostLike.exists?(user_id: current_user&.id, post_id: params[:post_id])
     end
 
     def not_liked_yet?
