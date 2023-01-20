@@ -17,6 +17,6 @@
       == render 'posts/comments/form', form_comment: @comment, url: post_comments_path(post, parent_id: comment.id)
 
   - if comment.has_children?
-    - comment.children.each do |nested_comment|
+    - @comments.children_of(comment).each do |nested_comment|
       div(style="margin-left: #{indent * 2}rem;")
         == render 'posts/comments/nested', comment: nested_comment, post:, indent: indent + 1 > 6 ? indent : indent + 1
