@@ -28,7 +28,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
     assert { PostComment.exists?(comment.id) }
     assert { PostComment.exists?(nested_comment.id) }
-    assert { PostComment.exists?(deep_nested_comment.id)}
+    assert { PostComment.exists?(deep_nested_comment.id) }
     assert { deep_nested_comment.ancestry == "#{comment.id}/#{nested_comment.id}" }
     assert_redirected_to post_url(@post)
   end

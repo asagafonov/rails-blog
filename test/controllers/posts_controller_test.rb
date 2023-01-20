@@ -57,7 +57,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     patch post_url(@not_my_post), params: { post: @attrs }
 
     assert_redirected_to posts_url
-    refute { @not_my_post.title == @attrs[:title] }
+    assert { @not_my_post.title != @attrs[:title] }
   end
 
   test 'should destroy post' do
@@ -73,7 +73,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     post posts_url, params: { post: @attrs }
     post = Post.find_by @attrs
 
-    refute { post }
+    assert { post.nil? }
     assert_redirected_to new_user_session_path
   end
 end
