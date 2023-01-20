@@ -40,6 +40,7 @@ en:
     title: Rails blog
 
   posts:
+    new: 'New article'
     home: 'Home'
     all: 'All articles'
     add_new: 'Add article'
@@ -85,20 +86,4 @@ en:
     confirm_deletion: 'Are you sure you want to delete comment?'
   
   time:
-    day:
-      one: '1 day ago'
-      few: '%{count} days ago'
-      many: '%{count} days ago'
-      other: '%{count} days ago'
-
-    hour:
-      one: '1 hour ago'
-      few: '%{count} hours ago'
-      many: '%{count} hours ago'
-      other: '%{count} hours ago'
-    
-    minute:
-      one: '1 minute ago'
-      few: '%{count} minutes ago'
-      many: '%{count} minutes ago'
-      other: '%{count} minutes ago'
+    ago: 'ago'

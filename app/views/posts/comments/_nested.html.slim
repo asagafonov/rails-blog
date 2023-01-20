@@ -8,14 +8,15 @@
     .d-flex.px-4.pb-3
       button.btn.btn-outline-secondary.me-2(data-action="nested-comment#show" data-nested-comment-target="button") = t('comments.respond')
 
-      - if comment.user == current_user
-        = link_to t('comments.delete'), comment_url(comment), data: { 'turbo-method': :delete, 'turbo-confirm': t('comments.confirm_deletion') },
-                                                              class: 'me-4 btn btn-outline-danger'
+      - if comment.user_id == current_user&.id
+        = link_to t('comments.delete'), post_comment_url(post, comment),
+                                        data: { 'turbo-method': :delete, 'turbo-confirm': t('comments.confirm_deletion') },
+                                        class: 'me-4 btn btn-outline-danger'
 
     .mx-4(data-nested-comment-target="form" style="display: none;")
-      == render 'posts/comments/form', comment: @comment, url: post_comments_path(post, ancestry: comment.ancestry ? "#{comment.ancestry}/#{comment.id}" : comment.id)
+      == render 'posts/comments/form', form_comment: @comment, url: post_comments_path(post, parent_id: comment.id)
 
   - if comment.has_children?
-    - comment.children.each do |nested_comment|
-      div(style="margin-left: #{indent * 2}rem; width: calc(100% - #{indent * 2}rem)")
+    - @comments.children_of(comment).each do |nested_comment|
+      div(style="margin-left: #{indent * 2}rem;")
         == render 'posts/comments/nested', comment: nested_comment, post:, indent: indent + 1 > 6 ? indent : indent + 1

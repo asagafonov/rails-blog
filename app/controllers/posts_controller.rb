@@ -2,13 +2,14 @@
 
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :set_post, only: %i[show edit update destroy]
 
   def index
     @posts = Post.by_creation_date_desc
+    @users = User.all
   end
 
   def show
+    @post = set_post
     @comments = @post.comments.by_creation_date_desc
     @comment = @post.comments.build
 
@@ -30,10 +31,18 @@ class PostsController < ApplicationController
   end
 
   def edit
-    redirect_to @post, alert: t('notifications.posts.forbidden.edit') unless belongs_to_user(@post)
+    @post = set_post
+
+    redirect_to @post, alert: t('notifications.posts.forbidden.edit') unless post_belongs_to_user?
   end
 
   def update
+    @post = set_post
+
+    unless current_user.posts.include?(@post)
+      redirect_to posts_path, notice: t('notifications.posts.forbidden.edit') and return
+    end
+
     if @post.update(post_params)
       redirect_to @post, notice: t('notifications.posts.updated')
     else
@@ -42,7 +51,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    if belongs_to_user(@post)
+    @post = set_post
+
+    if post_belongs_to_user?
       @post.destroy
       redirect_to posts_url, notice: t('notifications.posts.deleted')
     else
@@ -52,8 +63,8 @@ class PostsController < ApplicationController
 
   private
 
-  def belongs_to_user(post)
-    post.creator.email == current_user.email
+  def post_belongs_to_user?
+    @post.user_id == current_user&.id
   end
 
   def set_post
@@ -62,9 +73,5 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:category_id, :body, :title)
-  end
-
-  def comment_params
-    params.permit(:body, :post_id)
   end
 end

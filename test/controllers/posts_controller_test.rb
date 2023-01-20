@@ -5,6 +5,7 @@ require 'test_helper'
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @post = posts(:without_comments)
+    @not_my_post = posts(:two)
 
     @attrs = {
       title: Faker::Lorem.sentence(word_count: 3),
@@ -12,10 +13,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
       category_id: categories(:one).id
     }
 
-    authenticate_user users(:one)
-
-    follow_redirect!
-    assert_response :success
+    sign_in users(:one)
   end
 
   test 'should get index' do
@@ -55,10 +53,27 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to post_url(@post)
   end
 
+  test "should not update other person's post" do
+    patch post_url(@not_my_post), params: { post: @attrs }
+
+    assert_redirected_to posts_url
+    assert { @not_my_post.title != @attrs[:title] }
+  end
+
   test 'should destroy post' do
     delete post_url(@post)
 
     assert { !Post.exists?(@post.id) }
     assert_redirected_to posts_url
+  end
+
+  test 'should not allow post creation for unauthenticated users' do
+    delete destroy_user_session_url
+
+    post posts_url, params: { post: @attrs }
+    post = Post.find_by @attrs
+
+    assert { post.nil? }
+    assert_redirected_to new_user_session_path
   end
 end

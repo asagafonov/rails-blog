@@ -2,16 +2,10 @@
 
 module Posts
   class CommentsController < ApplicationController
-    before_action :set_post, only: %i[index new create]
-    before_action :set_comment, only: %i[edit update destroy]
-
-    def index; end
-
-    def new; end
-
     def create
+      @post = set_post
       @comment = @post.comments.build(comment_params)
-      @comment.ancestry = params[:ancestry]
+      @comment.parent_id = params[:parent_id] || nil
       @comment.user = current_user
 
       if @comment.save
@@ -21,18 +15,10 @@ module Posts
       end
     end
 
-    def edit; end
-
-    def update
-      if @comment.update(comment_params)
-        redirect_to post_url(@comment[:post_id]), notice: t('notifications.comments.updated')
-      else
-        render :edit, status: :unprocessable_entity
-      end
-    end
-
     def destroy
-      if belongs_to_user(@comment)
+      @comment = set_comment
+
+      if comment_belongs_to_user?
         @comment.destroy
         redirect_to post_url(@comment[:post_id]), notice: t('notifications.comments.deleted')
       else
@@ -42,8 +28,8 @@ module Posts
 
     private
 
-    def belongs_to_user(comment)
-      comment.user.email == current_user.email
+    def comment_belongs_to_user?
+      @comment.user_id == current_user&.id
     end
 
     def set_post
@@ -55,7 +41,7 @@ module Posts
     end
 
     def comment_params
-      params.require(:post_comment).permit(:content, :post_id)
+      params.require(:post_comment).permit(:content)
     end
   end
 end

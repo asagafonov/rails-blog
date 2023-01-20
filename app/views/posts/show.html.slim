@@ -4,7 +4,7 @@ ol.breadcrumb
 
 h1.mb-4 = @post.title
 
-- if @post.creator == current_user
+- if @post.user_id == current_user&.id
   .d-flex.mb-4
     = link_to t('posts.edit'), edit_post_url(@post), class: 'btn btn-outline-primary me-2'
     = link_to t('posts.delete'), @post, data: { 'turbo-method': :delete, 'turbo-confirm': t('posts.confirm_deletion') }, class: 'btn btn-outline-danger'
@@ -14,7 +14,7 @@ p = @post.body
 .d-flex.mt-5.gap-4.mb-4.justify-content-between
   span
     p = @post.creator.email
-    p = PostsHelper::TimeSince.amount(@post.created_at)
+    p = "#{time_ago_in_words(@post.created_at)} #{t("time.ago")}"
   span.d-flex.align-items-center
     - if user_signed_in?
       span
@@ -30,7 +30,7 @@ p = @post.body
 .lead.mb-3 = "#{t("posts.comment", count: @comments.count)}: #{@comments.count}"
 
 - if user_signed_in?
-  == render 'posts/comments/form', comment: @comment, url: post_comments_path(@post)
+  == render 'posts/comments/form', form_comment: @comment, url: post_comments_path(@post)
 
 - unless @comments.empty?
   .card.mb-4

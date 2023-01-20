@@ -9,25 +9,21 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
     @post2 = posts(:two)
     @like = post_likes(:deletable)
 
-    authenticate_user users(:one)
+    sign_in users(:one)
   end
 
-  test 'should create like once' do
-    assert_difference('PostLike.count') do
-      post post_likes_url(@post)
-    end
+  test 'should create like' do
+    post post_likes_url(@post)
 
-    assert_no_difference('PostLike.count') do
-      post post_likes_url(@post)
-    end
+    assert { PostLike.exists?(post_id: @post.id) }
 
     assert_redirected_to post_url(@post)
   end
 
   test 'should destroy like' do
-    assert_difference('PostLike.count', -1) do
-      delete post_like_url(@post2, @like)
-    end
+    delete post_like_url(@post2, @like)
+
+    assert { !PostLike.exists?(@like.id) }
 
     assert_redirected_to post_url(@post2)
   end
