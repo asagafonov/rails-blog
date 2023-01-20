@@ -9,31 +9,39 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     @nested_comment = post_comments(:nested)
     @deep_nested_comment = post_comments(:deep_nested)
 
+    @attrs = { content: 'root comment' }
+    @attrs_nested = { content: 'first sibling' }
+    @attrs_deep_nested = { content: 'sibling of sibling' }
+
     sign_in users(:one)
   end
 
   test 'should create nested post comments' do
-    assert_difference('PostComment.count', 3) do
-      post post_comments_url(@post), params: { post_comment: { content: @comment.content, post_id: @comment.post_id } }
-      post post_comments_url(@post), params: { post_comment: { content: @nested_comment.content, post_id: @nested_comment.post_id } }
-      post post_comments_url(@post), params: { post_comment: { content: @deep_nested_comment.content, post_id: @deep_nested_comment.post_id } }
-    end
+    post post_comments_url(@post), params: { post_comment: @attrs }
 
-    assert { @deep_nested_comment.ancestry == "#{@comment.id}/#{@nested_comment.id}" }
+    comment = PostComment.find_by(@attrs)
 
+    post post_comments_url(@post, parent_id: comment.id), params: { post_comment: @attrs_nested }
+
+    nested_comment = PostComment.find_by(@attrs_nested)
+
+    post post_comments_url(@post, parent_id: nested_comment.id), params: { post_comment: @attrs_deep_nested }
+
+    deep_nested_comment = PostComment.find_by(@attrs_deep_nested)
+
+    assert { PostComment.exists?(comment.id) }
+    assert { PostComment.exists?(nested_comment.id) }
+    assert { PostComment.exists?(deep_nested_comment.id)}
+    assert { deep_nested_comment.ancestry == "#{comment.id}/#{nested_comment.id}" }
     assert_redirected_to post_url(@post)
   end
 
   test 'should destroy nested post comments' do
-    # delete branch comment
-    assert_difference('PostComment.count', - 1) do
-      delete post_comment_url(@post, @deep_nested_comment)
-    end
+    delete post_comment_url(@post, @comment)
 
-    # delete root comment (sibling is also destroyed)
-    assert_difference('PostComment.count', -2) do
-      delete post_comment_url(@post, @comment)
-    end
+    assert { !PostComment.exists?(@comment.id) }
+    assert { !PostComment.exists?(@nested_comment.id) }
+    assert { !PostComment.exists?(@deep_nested_comment.id) }
 
     assert_redirected_to post_path(@post)
   end
