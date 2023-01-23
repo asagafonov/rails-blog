@@ -4,8 +4,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @posts = Post.by_creation_date_desc
-    @users = User.all
+    @posts = Post.includes(:creator).by_creation_date_desc
   end
 
   def show
