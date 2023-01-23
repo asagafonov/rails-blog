@@ -21,10 +21,10 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     post post_comments_url(@post), params: { post_comment: @attrs }
     comment = PostComment.find_by(@attrs)
 
-    post post_comments_url(@post, parent_id: comment.id), params: { post_comment: @attrs_nested }
+    post post_comments_url(@post), params: { post_comment: @attrs_nested.merge(parent_id: comment.id) }
     nested_comment = PostComment.find_by(@attrs_nested)
 
-    post post_comments_url(@post, parent_id: nested_comment.id), params: { post_comment: @attrs_deep_nested }
+    post post_comments_url(@post), params: { post_comment: @attrs_deep_nested.merge(parent_id: nested_comment.id) }
     deep_nested_comment = PostComment.find_by(@attrs_deep_nested)
 
     assert { comment.user_id == @user.id }
