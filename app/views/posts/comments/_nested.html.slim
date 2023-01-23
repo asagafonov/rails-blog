@@ -14,7 +14,7 @@
                                         class: 'me-4 btn btn-outline-danger'
 
     .mx-4(data-nested-comment-target="form" style="display: none;")
-      == render 'posts/comments/form', form_comment: @comment, url: post_comments_path(post, parent_id: comment.id)
+      == render 'posts/comments/form', form_comment: @comment, parent_id: comment.id, url: post_comments_path(post, parent_id: comment.id)
 
   - if comment.has_children?
     - @comments.children_of(comment).each do |nested_comment|
