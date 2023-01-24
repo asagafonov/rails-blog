@@ -14,9 +14,15 @@
                                         class: 'me-4 btn btn-outline-danger'
 
     .mx-4(data-nested-comment-target="form" style="display: none;")
-      == render 'posts/comments/form', form_comment: @comment, url: post_comments_path(post, parent_id: comment.id)
+      == render 'posts/comments/form', form_comment:,
+                                       parent_id: comment.id,
+                                       url: post_comments_path(post)
 
-  - if comment.has_children?
-    - @comments.children_of(comment).each do |nested_comment|
-      div(style="margin-left: #{indent * 2}rem;")
-        == render 'posts/comments/nested', comment: nested_comment, post:, indent: indent + 1 > 6 ? indent : indent + 1
+  - unless children.empty?
+    - children.each do |nested_comment, nested_children|
+      div(style="padding-left: #{indent}rem;")
+        == render 'posts/comments/nested', post:,
+                                           comment: nested_comment,
+                                           children: nested_children,
+                                           form_comment:,
+                                           indent: indent + 1 > 6 ? indent : indent + 1

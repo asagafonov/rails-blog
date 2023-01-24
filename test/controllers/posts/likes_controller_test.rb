@@ -8,14 +8,17 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
 
     @post2 = posts(:two)
     @like = post_likes(:deletable)
+    @user = users(:one)
 
-    sign_in users(:one)
+    sign_in @user
   end
 
   test 'should create like' do
     post post_likes_url(@post)
 
-    assert { PostLike.exists?(post_id: @post.id) }
+    like = PostLike.find_by(post_id: @post.id)
+
+    assert { like && like.user_id == @user.id }
 
     assert_redirected_to post_url(@post)
   end

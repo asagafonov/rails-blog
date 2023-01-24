@@ -13,22 +13,22 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     @attrs_nested = { content: 'first sibling' }
     @attrs_deep_nested = { content: 'sibling of sibling' }
 
-    sign_in users(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test 'should create nested post comments' do
     post post_comments_url(@post), params: { post_comment: @attrs }
     comment = PostComment.find_by(@attrs)
 
-    post post_comments_url(@post, parent_id: comment.id), params: { post_comment: @attrs_nested }
+    post post_comments_url(@post), params: { post_comment: @attrs_nested.merge(parent_id: comment.id) }
     nested_comment = PostComment.find_by(@attrs_nested)
 
-    post post_comments_url(@post, parent_id: nested_comment.id), params: { post_comment: @attrs_deep_nested }
+    post post_comments_url(@post), params: { post_comment: @attrs_deep_nested.merge(parent_id: nested_comment.id) }
     deep_nested_comment = PostComment.find_by(@attrs_deep_nested)
 
-    assert { PostComment.exists?(comment.id) }
-    assert { PostComment.exists?(nested_comment.id) }
-    assert { PostComment.exists?(deep_nested_comment.id) }
+    assert { comment.user_id == @user.id }
+    assert { comment && nested_comment && deep_nested_comment }
     assert { deep_nested_comment.ancestry == "#{comment.id}/#{nested_comment.id}" }
     assert_redirected_to post_url(@post)
   end

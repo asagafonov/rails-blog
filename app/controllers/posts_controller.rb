@@ -4,13 +4,12 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @posts = Post.by_creation_date_desc
-    @users = User.all
+    @posts = Post.includes(:creator).by_creation_date_desc
   end
 
   def show
     @post = set_post
-    @comments = @post.comments.by_creation_date_desc
+    @comments = @post.comments.includes(:user).by_creation_date_desc.arrange
     @comment = @post.comments.build
 
     @like = @post.likes.find { |like| like.user_id == current_user&.id }
@@ -39,9 +38,7 @@ class PostsController < ApplicationController
   def update
     @post = set_post
 
-    unless current_user.posts.include?(@post)
-      redirect_to posts_path, notice: t('notifications.posts.forbidden.edit') and return
-    end
+    redirect_to posts_path, notice: t('notifications.posts.forbidden.edit') and return unless post_belongs_to_user?
 
     if @post.update(post_params)
       redirect_to @post, notice: t('notifications.posts.updated')
