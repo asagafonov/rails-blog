@@ -9,7 +9,7 @@ class PostsController < ApplicationController
 
   def show
     @post = set_post
-    @comments = @post.comments.by_creation_date_desc
+    @comments = @post.comments.includes(:user).by_creation_date_desc.arrange
     @comment = @post.comments.build
 
     @like = @post.likes.find { |like| like.user_id == current_user&.id }
