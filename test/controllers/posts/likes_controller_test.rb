@@ -18,7 +18,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
 
     like = PostLike.find_by(post_id: @post.id, user_id: @user.id)
 
-    assert { like && like.user_id == @user.id }
+    assert { like }
 
     assert_redirected_to post_url(@post)
   end
