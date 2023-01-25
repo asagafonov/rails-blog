@@ -16,7 +16,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
   test 'should create like' do
     post post_likes_url(@post)
 
-    like = PostLike.find_by(post_id: @post.id)
+    like = PostLike.find_by(post_id: @post.id, user_id: @user.id)
 
     assert { like && like.user_id == @user.id }
 
